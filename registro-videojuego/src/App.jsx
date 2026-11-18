@@ -2,19 +2,57 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { videojuegoSchema } from "./schemas/videojuegoSchema";
 import { obtenerVideojuegos } from "./services/videojuegos";
+import { crearVideojuego } from "./services/videojuegos";
+import { eliminarVideojuego } from "./services/videojuegos";
+import ListaVideojuegos from "./components/ListaVideojuegos";
+import {
+    useQuery,
+    useMutation,
+    useQueryClient
+} from "@tanstack/react-query";
 
 function App() {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm({
         resolver: zodResolver(videojuegoSchema)
     });
 
+    const { data: videojuegos, isPending, isError } = useQuery({
+        queryKey: ["videojuegos"],
+        queryFn: obtenerVideojuegos
+    });
+
+    console.log("Videojuegos recuperados:", videojuegos);
+
     function registrarVideojuego(datos) {
-        console.log("Videojuego válido:", datos);
+        mutacion.mutate(datos);
     }
+
+    const queryClient = useQueryClient();
+
+    const mutacion = useMutation({
+        mutationFn: crearVideojuego,
+        onSuccess: () => {
+                reset();
+
+            queryClient.invalidateQueries({
+                queryKey: ["videojuegos"]
+            });
+        }
+    });
+
+    const mutacionEliminar = useMutation({
+        mutationFn: eliminarVideojuego,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["videojuegos"]
+            });
+        }
+    });
 
     return (
       <>
@@ -39,16 +77,42 @@ function App() {
             {errors.anio && <p>{errors.anio.message}</p>}
 
             <label htmlFor="puntuacion">Puntuación</label>
+
             <input id="puntuacion" type="number" step="0.1" {...register("puntuacion")} />
             {errors.puntuacion && <p>{errors.puntuacion.message}</p>}
 
-            <button type="submit">Registrar videojuego</button>
+            <label htmlFor="foto">URL de la portada</label>
+
+            <input
+                id="foto"
+                type="url"
+                {...register("foto")}
+            />
+
+            {errors.foto && <p>{errors.foto.message}</p>}
+
+            <button type="submit" disabled={mutacion.isPending}>
+                {mutacion.isPending ? "Registrando..." : "Registrar videojuego"}
+            </button>
+
+            {mutacion.isError && <p>Error al registrar</p>}
+
+            {mutacion.isSuccess && <p>¡Videojuego registrado!</p>}
         </form>
 
-        <button type="button" onClick={probarAPI}>
-            Probar API
-        </button>
-      </>  
+        <h2>Mi colección de videojuegos</h2>
+
+            {isPending && <p>Cargando videojuegos...</p>}
+
+            {isError && <p>Error al recuperar videojuegos</p>}
+
+            {videojuegos && (
+                <ListaVideojuegos
+                    videojuegos={videojuegos}
+                    eliminar={(id) => mutacionEliminar.mutate(id)}
+                />
+            )}
+        </>  
     );
 }
 

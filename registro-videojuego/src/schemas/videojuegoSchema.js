@@ -15,5 +15,32 @@ export const videojuegoSchema = z.object({
 
     puntuacion: z.coerce.number()
         .min(0, "La puntuación mínima es 0")
-        .max(10, "La puntuación máxima es 10")
-});
+        .max(10, "La puntuación máxima es 10"),
+
+    foto: z.url("Introduce una URL válida")
+
+}).refine(
+    (datos) => {
+        if (datos.plataforma === "PS5" && datos.anio < 2020) {
+            return false;
+        }
+
+        return true;
+    },
+    {
+        message: "La PS5 no existía antes de 2020",
+        path: ["anio"]
+    }
+).refine(
+    (datos) => {
+        if (datos.plataforma === "Switch" && datos.anio < 2017) {
+            return false;
+        }
+
+        return true;
+    },
+    {
+        message: "La Nintendo Switch no existía antes de 2017",
+        path: ["anio"]
+    }
+);

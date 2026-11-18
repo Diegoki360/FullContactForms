@@ -1,0 +1,13 @@
+{
+  "videojuegos": [
+    {
+      "titulo": "Super Mario Oddyssey",
+      "plataforma": "Switch",
+      "anio": 2017,
+      "puntuacion": 9.5,
+      "foto": "https://www.google.com/search?q=mario+odyssey+&sca_esv=0cc06bd23f553b17&rlz=1C1GCEA_enES1235ES1236&udm=2&biw=1707&bih=898&sxsrf=AKL5yDhrGejbbfbEJ1G-8CqENbrZwz_mGw%3A1795023548759&ei=vOL9apDyLf6ji-gP88v3WA&ved=2ahUKEwiQwPLnh5KYAxX-0QIHHfPlHQsQ4dUDegQIBhAN&uact=5&oq=mario+odyssey+&gs_lp=Egtnd3Mtd2l6LWltZyIObWFyaW8gb2R5c3NleSAyBxAjGMkCGCcyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgARIogdQ7wRY7wRwAXgAkAEAmAGNAaABjQGqAQMwLjG4AQPIAQD4AQGYAgKgApMBwgIGEAAYBxgewgIKEAAYgAQYigUYQ8ICBhAAGAgYHpgDAIgGAZIHAzEuMaAH4wWyBwMwLjG4B5EBwgcDMC4yyAcEgAgB&sclient=gws-wiz-img#sv=CAMSUxoyKhBlLWpHbW93WGszd05PY1RNMg5qR21vd1hrM3dOT2NUTToOeHpNZUJsQm0zZkpWb00gBCoXCgFzEhBlLWpHbW93WGszd05PY1RNGAEwAVACGAcg0puZ9wtKCBACGAEgAigB",
+      "id": "FSeXlLpM1Bg"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
