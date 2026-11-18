@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:3000/videojuegos";
+import { listaVideojuegosSchema } from "../schemas/videojuegoSchema";
+
+const API_URL = `${import.meta.env.VITE_API_URL}/videojuegos`;;
 
 export async function obtenerVideojuegos() {
     const respuesta = await fetch(API_URL);
@@ -7,7 +9,15 @@ export async function obtenerVideojuegos() {
         throw new Error("Error al obtener los videojuegos");
     }
 
-    return respuesta.json();
+    const datos = await respuesta.json();
+
+    const resultado = listaVideojuegosSchema.safeParse(datos);
+
+    if (!resultado.success) {
+        throw new Error("Los datos de la API no son válidos");
+    }
+
+    return resultado.data;
 }
 
 export async function crearVideojuego(videojuego) {

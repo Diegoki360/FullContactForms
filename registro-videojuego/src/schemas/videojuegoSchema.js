@@ -44,3 +44,9 @@ export const videojuegoSchema = z.object({
         path: ["anio"]
     }
 );
+
+export const videojuegoRespuestaSchema = videojuegoSchema.extend({
+    id: z.string()
+});
+
+export const listaVideojuegosSchema = z.array(videojuegoRespuestaSchema);
