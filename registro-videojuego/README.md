@@ -1,274 +1,98 @@
-# \# M4 - Full Contact Forms | Retro Arcade
 
-# 
 
-# \## Descripción
+# Retro Arcade
 
-# 
 
-# Retro Arcade es una aplicación web que permite registrar
 
-# videojuegos y gestionar una colección personal.
+Misión M4 · Full Contact Forms — Web Development I.
 
-# 
 
-# Cada videojuego cuenta con un título, una plataforma,
 
-# un año de lanzamiento, una puntuación y una portada.
+## Cómo probarlo
 
-# 
+Instala las dependencias con `npm install`. Crea un archivo `.env` en
 
-# El diseño está inspirado en la estética de las máquinas
+la raíz del proyecto con `VITE\_API\_URL=http://localhost:3000`.
 
-# recreativas de los años 80.
 
-# 
 
-# \## Tecnologías utilizadas
+Ejecuta `npx json-server db.json` para iniciar la API y, en otra
 
-# 
+terminal, `npm run dev` para iniciar la aplicación.
 
-# \- React y Vite.
 
-# \- React Hook Form.
 
-# \- Zod.
+Desde el navegador puedes registrar videojuegos indicando su título,
 
-# \- TanStack Query v5.
+plataforma, año, puntuación y URL de la portada. Los videojuegos
 
-# \- JSON Server.
+aparecen en tarjetas y se pueden eliminar de la colección.
 
-# \- CSS.
 
-# 
 
-# \## Instalación y ejecución
+Prueba también a introducir datos incorrectos para comprobar los
 
-# 
+mensajes de validación del formulario.
 
-# Instalar las dependencias:
 
-# 
 
-# ```bash
+## Declaración de Uso de la IA
 
-# npm install
+Usé ChatGPT como apoyo para comprender React Hook Form, Zod y
 
-# ```
+TanStack Query, y para resolver errores durante el desarrollo.
 
-# 
 
-# Iniciar la API local:
 
-# 
+Ejemplo de prompt real: "En resumen que es tan stack querer 5 y
 
-# ```bash
+como se usa".
 
-# npx json-server db.json
 
-# ```
 
-# 
+También utilicé la IA para generar el CSS, pidiendo una estética
 
-# Iniciar la aplicación en otra terminal:
+inspirada en las máquinas recreativas de los años 80.
 
-# 
 
-# ```bash
 
-# npm run dev
+Fui comprobando los cambios ejecutando la aplicación y revisando
 
-# ```
+los errores que aparecían. Las decisiones sobre la temática y la
 
-# 
+organización de los componentes las fui tomando durante el desarrollo.
 
-# Crear un archivo .env en la raíz del proyecto con:
 
-# 
 
-# ```env
+## Autopsia
 
-# VITE\_API\_URL=http://localhost:3000
+1\. Separé la lista de videojuegos en dos componentes: uno que recorre
 
-# ```
+&#x20;  la colección y otro que representa cada videojuego mediante una
 
-# 
+&#x20;  tarjeta. Descarté mostrar todas las tarjetas directamente desde
 
-# \## Verificación
+&#x20;  App.jsx porque el componente principal acabaría teniendo demasiado
 
-# 
+&#x20;  código. Aunque ahora tengo que pasar información y funciones
 
-# \- Registrar videojuegos mediante el formulario.
+&#x20;  mediante props, resulta más sencillo modificar las tarjetas sin
 
-# \- Validar los campos mediante Zod.
+&#x20;  afectar al resto de la aplicación.
 
-# \- Mostrar mensajes de error al introducir datos incorrectos.
 
-# \- Comprobar la compatibilidad entre plataforma y año.
 
-# \- Vaciar el formulario después de registrar un videojuego.
+2\. Utilicé JSON Server para guardar los videojuegos en un archivo
 
-# \- Mostrar los videojuegos mediante tarjetas.
+&#x20;  db.json. Descarté utilizar JSONPlaceholder porque, aunque permite
 
-# \- Eliminar videojuegos de la colección.
+&#x20;  probar peticiones HTTP, los cambios no se guardan realmente.
 
-# \- Mantener los videojuegos registrados al recargar la página.
+&#x20;  Preferí tener una API local para que los videojuegos registrados
 
-# \- Mostrar los estados de carga y error de la API.
+&#x20;  siguieran apareciendo después de recargar la página. El inconveniente
 
-# 
+&#x20;  es que necesito mantener dos servidores ejecutándose.
 
-# \## Uso de IA
 
-# 
-
-# \*\*Herramienta utilizada:\*\* ChatGPT.
-
-# 
-
-# He utilizado la IA principalmente para resolver dudas
-
-# sobre los nuevos conceptos de esta unidad, especialmente
-
-# React Hook Form, Zod y TanStack Query.
-
-# 
-
-# También la he utilizado para resolver errores durante
-
-# el desarrollo y para generar el CSS de la aplicación,
-
-# siguiendo una estética retro de los años 80.
-
-# 
-
-# \*\*Ejemplos de prompts:\*\*
-
-# 
-
-# \- ¿Qué es TanStack Query y cómo se utiliza?
-
-# \- ¿Cómo puedo añadir un campo de foto mediante una URL?
-
-# \- ¿Cómo puedo darle una estética más retro de los años 80?
-
-# 
-
-# \*\*Verificación:\*\*
-
-# 
-
-# He ido probando las soluciones propuestas por la IA
-
-# durante el desarrollo de la aplicación, intentando
-
-# entender el funcionamiento del código antes de utilizarlo.
-
-# 
-
-# \## Autopsia
-
-# 
-
-# \### Decisión 1: Separar la lista de videojuegos en tarjetas
-
-# 
-
-# \*\*Decisión tomada:\*\*
-
-# 
-
-# Crear un componente para la lista de videojuegos y otro
-
-# componente individual para representar cada videojuego
-
-# mediante una tarjeta.
-
-# 
-
-# \*\*Alternativa descartada:\*\*
-
-# 
-
-# Mostrar todos los videojuegos directamente desde App.jsx.
-
-# 
-
-# \*\*Justificación:\*\*
-
-# 
-
-# He decidido separar los videojuegos en tarjetas para
-
-# tener el código más organizado y evitar que App.jsx
-
-# contenga toda la lógica y la representación visual
-
-# de los videojuegos.
-
-# 
-
-# Además, esto permite modificar el diseño de las tarjetas
-
-# sin tener que modificar el componente principal.
-
-# 
-
-# \*\*Inconvenientes:\*\*
-
-# 
-
-# Es necesario crear más componentes y pasar información
-
-# y funciones entre ellos mediante props.
-
-# 
-
-# \### Decisión 2: Utilizar una API local
-
-# 
-
-# \*\*Decisión tomada:\*\*
-
-# 
-
-# Utilizar JSON Server para almacenar los videojuegos
-
-# registrados en un archivo db.json.
-
-# 
-
-# \*\*Alternativa descartada:\*\*
-
-# 
-
-# Utilizar una API externa de pruebas como JSONPlaceholder.
-
-# 
-
-# \*\*Justificación:\*\*
-
-# 
-
-# He decidido utilizar JSON Server porque quería que los
-
-# videojuegos se guardasen realmente al registrarlos y
-
-# que no desapareciesen al recargar la página.
-
-# 
-
-# De esta manera, la aplicación funciona como una pequeña
-
-# biblioteca personal de videojuegos.
-
-# 
-
-# \*\*Inconvenientes:\*\*
-
-# 
-
-# Es necesario mantener dos servidores ejecutándose
-
-# al mismo tiempo para utilizar la aplicación.
 

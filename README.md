@@ -1,274 +1,98 @@
-# \# M4 - Full Contact Forms | Retro Arcade
+# 
+
+## Retro Arcade
 
 # 
 
-# \## Descripción
+# Misión M4 · Full Contact Forms — Web Development I.
 
 # 
 
-# Retro Arcade es una aplicación web que permite registrar
+### Cómo probarlo
 
-# videojuegos y gestionar una colección personal.
+# Instala las dependencias con `npm install`. Crea un archivo `.env` en
 
-# 
-
-# Cada videojuego cuenta con un título, una plataforma,
-
-# un año de lanzamiento, una puntuación y una portada.
+# la raíz del proyecto con `VITE\_API\_URL=http://localhost:3000`.
 
 # 
 
-# El diseño está inspirado en la estética de las máquinas
+# Ejecuta `npx json-server db.json` para iniciar la API y, en otra
 
-# recreativas de los años 80.
-
-# 
-
-# \## Tecnologías utilizadas
+# terminal, `npm run dev` para iniciar la aplicación.
 
 # 
 
-# \- React y Vite.
+# Desde el navegador puedes registrar videojuegos indicando su título,
 
-# \- React Hook Form.
+# plataforma, año, puntuación y URL de la portada. Los videojuegos
 
-# \- Zod.
-
-# \- TanStack Query v5.
-
-# \- JSON Server.
-
-# \- CSS.
+# aparecen en tarjetas y se pueden eliminar de la colección.
 
 # 
 
-# \## Instalación y ejecución
+# Prueba también a introducir datos incorrectos para comprobar los
+
+# mensajes de validación del formulario.
 
 # 
 
-# Instalar las dependencias:
+### S
+
+# Usé ChatGPT como apoyo para comprender React Hook Form, Zod y
+
+# TanStack Query, y para resolver errores durante el desarrollo.
 
 # 
 
-# ```bash
+# Ejemplo de prompt real: "En resumen que es tan stack querer 5 y
 
-# npm install
-
-# ```
+# como se usa".
 
 # 
 
-# Iniciar la API local:
+# También utilicé la IA para generar el CSS, pidiendo una estética
+
+# inspirada en las máquinas recreativas de los años 80.
 
 # 
 
-# ```bash
+# Fui comprobando los cambios ejecutando la aplicación y revisando
 
-# npx json-server db.json
+# los errores que aparecían. Las decisiones sobre la temática y la
 
-# ```
-
-# 
-
-# Iniciar la aplicación en otra terminal:
+# organización de los componentes las fui tomando durante el desarrollo.
 
 # 
 
-# ```bash
+### Autopsia
 
-# npm run dev
+# 1\. Separé la lista de videojuegos en dos componentes: uno que recorre
 
-# ```
+# &#x20;  la colección y otro que representa cada videojuego mediante una
 
-# 
+# &#x20;  tarjeta. Descarté mostrar todas las tarjetas directamente desde
 
-# Crear un archivo .env en la raíz del proyecto con:
+# &#x20;  App.jsx porque el componente principal acabaría teniendo demasiado
 
-# 
+# &#x20;  código. Aunque ahora tengo que pasar información y funciones
 
-# ```env
+# &#x20;  mediante props, resulta más sencillo modificar las tarjetas sin
 
-# VITE\_API\_URL=http://localhost:3000
-
-# ```
+# &#x20;  afectar al resto de la aplicación.
 
 # 
 
-# \## Verificación
+# 2\. Utilicé JSON Server para guardar los videojuegos en un archivo
 
-# 
+# &#x20;  db.json. Descarté utilizar JSONPlaceholder porque, aunque permite
 
-# \- Registrar videojuegos mediante el formulario.
+# &#x20;  probar peticiones HTTP, los cambios no se guardan realmente.
 
-# \- Validar los campos mediante Zod.
+# &#x20;  Preferí tener una API local para que los videojuegos registrados
 
-# \- Mostrar mensajes de error al introducir datos incorrectos.
+# &#x20;  siguieran apareciendo después de recargar la página. El inconveniente
 
-# \- Comprobar la compatibilidad entre plataforma y año.
+# &#x20;  es que necesito mantener dos servidores ejecutándose.
 
-# \- Vaciar el formulario después de registrar un videojuego.
 
-# \- Mostrar los videojuegos mediante tarjetas.
-
-# \- Eliminar videojuegos de la colección.
-
-# \- Mantener los videojuegos registrados al recargar la página.
-
-# \- Mostrar los estados de carga y error de la API.
-
-# 
-
-# \## Uso de IA
-
-# 
-
-# \*\*Herramienta utilizada:\*\* ChatGPT.
-
-# 
-
-# He utilizado la IA principalmente para resolver dudas
-
-# sobre los nuevos conceptos de esta unidad, especialmente
-
-# React Hook Form, Zod y TanStack Query.
-
-# 
-
-# También la he utilizado para resolver errores durante
-
-# el desarrollo y para generar el CSS de la aplicación,
-
-# siguiendo una estética retro de los años 80.
-
-# 
-
-# \*\*Ejemplos de prompts:\*\*
-
-# 
-
-# \- ¿Qué es TanStack Query y cómo se utiliza?
-
-# \- ¿Cómo puedo añadir un campo de foto mediante una URL?
-
-# \- ¿Cómo puedo darle una estética más retro de los años 80?
-
-# 
-
-# \*\*Verificación:\*\*
-
-# 
-
-# He ido probando las soluciones propuestas por la IA
-
-# durante el desarrollo de la aplicación, intentando
-
-# entender el funcionamiento del código antes de utilizarlo.
-
-# 
-
-# \## Autopsia
-
-# 
-
-# \### Decisión 1: Separar la lista de videojuegos en tarjetas
-
-# 
-
-# \*\*Decisión tomada:\*\*
-
-# 
-
-# Crear un componente para la lista de videojuegos y otro
-
-# componente individual para representar cada videojuego
-
-# mediante una tarjeta.
-
-# 
-
-# \*\*Alternativa descartada:\*\*
-
-# 
-
-# Mostrar todos los videojuegos directamente desde App.jsx.
-
-# 
-
-# \*\*Justificación:\*\*
-
-# 
-
-# He decidido separar los videojuegos en tarjetas para
-
-# tener el código más organizado y evitar que App.jsx
-
-# contenga toda la lógica y la representación visual
-
-# de los videojuegos.
-
-# 
-
-# Además, esto permite modificar el diseño de las tarjetas
-
-# sin tener que modificar el componente principal.
-
-# 
-
-# \*\*Inconvenientes:\*\*
-
-# 
-
-# Es necesario crear más componentes y pasar información
-
-# y funciones entre ellos mediante props.
-
-# 
-
-# \### Decisión 2: Utilizar una API local
-
-# 
-
-# \*\*Decisión tomada:\*\*
-
-# 
-
-# Utilizar JSON Server para almacenar los videojuegos
-
-# registrados en un archivo db.json.
-
-# 
-
-# \*\*Alternativa descartada:\*\*
-
-# 
-
-# Utilizar una API externa de pruebas como JSONPlaceholder.
-
-# 
-
-# \*\*Justificación:\*\*
-
-# 
-
-# He decidido utilizar JSON Server porque quería que los
-
-# videojuegos se guardasen realmente al registrarlos y
-
-# que no desapareciesen al recargar la página.
-
-# 
-
-# De esta manera, la aplicación funciona como una pequeña
-
-# biblioteca personal de videojuegos.
-
-# 
-
-# \*\*Inconvenientes:\*\*
-
-# 
-
-# Es necesario mantener dos servidores ejecutándose
-
-# al mismo tiempo para utilizar la aplicación.
 
